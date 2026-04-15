@@ -652,12 +652,11 @@
     window.editRecord = editRecord;
     window.deleteRecord = deleteRecord;
     document.addEventListener("DOMContentLoaded", init);
- </script>
-  
-  // جلب البيانات من Firebase
-  <script type="module">
+
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyB-Jan2M-qMusQQIO8UYcY16MzJfL4ftFg",
@@ -670,9 +669,23 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+  const section = document.getElementById("recordsSection");
+  if (!section) return;
+
+  if (!user) {
+    section.style.display = "none";
+  } else {
+    section.style.display = "block";
+  }
+});
 
   async function loadStudents() {
     const table = document.getElementById("recordsTable");
+    if (!table) return;
+
     table.innerHTML = "";
 
     const querySnapshot = await getDocs(collection(db, "students"));
@@ -683,16 +696,4 @@
       const row = `
         <tr>
           <td>${student.name || ""}</td>
-          <td>${student.grade || ""}</td>
-          <td>${student.id || ""}</td>
-        </tr>
-      `;
-
-      table.innerHTML += row;
-    });
-  }
-
-  loadStudents();
-</script>
-</body>
-</html>
+          <td>${student.grade || ""}</td
