@@ -64,12 +64,21 @@
     .info-note{
       background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:14px 16px;color:var(--muted)
     }
+    .age-table{
+      width:100%;border-collapse:collapse;margin-top:12px;font-size:.95rem
+    }
+    .age-table th,.age-table td{
+      border:1px solid #e5e7eb;padding:10px;text-align:center
+    }
+    .age-table th{
+      background:#f0fdf4;color:#166534
+    }
     .toast-wrap{
       position:fixed;top:18px;left:18px;z-index:9999;display:flex;flex-direction:column;gap:10px
     }
     .mini-toast{
       background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 10px 26px rgba(0,0,0,.14);
-      border-right:5px solid var(--brand);min-width:240px
+      border-right:5px solid var(--brand);min-width:260px
     }
     .mini-toast.error{border-right-color:#dc3545}
     .footer-note{padding:18px 8px;text-align:center;color:var(--muted)}
@@ -77,6 +86,7 @@
       .hero{padding:22px}
       #signaturePad{height:170px}
       .card-body,.card-head{padding:16px}
+      .age-table{font-size:.85rem}
     }
   </style>
 </head>
@@ -105,10 +115,39 @@
 
       <div class="card-body">
         <div class="info-note mb-3">
-          <strong>الفئات العمرية المعتمدة للعام الدراسي 2026:</strong>
-          <div class="mt-2">KG: من 4 إلى أقل من 6 سنوات</div>
-          <div>الصف الأول الابتدائي: من 6 إلى أقل من 7 سنوات</div>
-          <div class="mt-2">يتم تحديد الفئة تلقائيًا حسب تاريخ الميلاد وبالاعتماد على التاريخ المرجعي 1 أكتوبر 2026.</div>
+          <strong>الفئات المستخدمة هنا مبنية على آخر إعلان تفصيلي منشور من وزارة التعليم:</strong>
+          <table class="age-table">
+            <thead>
+              <tr>
+                <th>الفئة</th>
+                <th>من تاريخ</th>
+                <th>إلى تاريخ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Grade 1</td>
+                <td>قبل أو يوافق 2019-11-23</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>KG3</td>
+                <td>2019-08-26</td>
+                <td>2020-08-25</td>
+              </tr>
+              <tr>
+                <td>KG2</td>
+                <td>2020-08-26</td>
+                <td>2021-08-25</td>
+              </tr>
+              <tr>
+                <td>KG1</td>
+                <td>2021-08-26</td>
+                <td>2022-08-25</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mt-2">عند إدخال تاريخ الميلاد، يتم تحديد الفئة تلقائيًا. وإذا كان التاريخ خارج هذه الحدود تظهر النتيجة: غير مؤهل.</div>
         </div>
 
         <form id="registrationForm" novalidate>
@@ -198,6 +237,14 @@
 
     let signaturePad;
 
+    const CUT_GRADE1 = "2019-11-23";
+    const KG3_START = "2019-08-26";
+    const KG3_END = "2020-08-25";
+    const KG2_START = "2020-08-26";
+    const KG2_END = "2021-08-25";
+    const KG1_START = "2021-08-26";
+    const KG1_END = "2022-08-25";
+
     function initSignature() {
       resizeCanvas();
       signaturePad = new SignaturePad(canvas, {
@@ -233,58 +280,76 @@
       }, 3000);
     }
 
-    function calculateEligibility(birthdateValue) {
+    function isBetween(dateValue, start, end) {
+      return dateValue >= start && dateValue <= end;
+    }
+
+    function classifyByBirthdate(birthdateValue) {
       if (!birthdateValue) {
         return {
           eligible: false,
           stage: "",
-          result: "غير مؤهل"
+          result: "غير مؤهل",
+          reason: "يرجى إدخال تاريخ الميلاد"
         };
       }
 
-      const birth = new Date(birthdateValue + "T00:00:00");
-      const referenceDate = new Date("2026-10-01T00:00:00");
-
-      let age = referenceDate.getFullYear() - birth.getFullYear();
-      const monthDiff = referenceDate.getMonth() - birth.getMonth();
-
-      if (monthDiff < 0 || (monthDiff === 0 && referenceDate.getDate() < birth.getDate())) {
-        age--;
-      }
-
-      if (age >= 4 && age < 6) {
+      if (birthdateValue <= CUT_GRADE1) {
         return {
           eligible: true,
-          stage: "KG",
-          result: "مؤهل"
+          stage: "Grade 1",
+          result: "مؤهل",
+          reason: "مؤهل للصف الأول الابتدائي"
         };
       }
 
-      if (age >= 6 && age < 7) {
+      if (isBetween(birthdateValue, KG3_START, KG3_END)) {
         return {
           eligible: true,
-          stage: "الصف الأول الابتدائي",
-          result: "مؤهل"
+          stage: "KG3",
+          result: "مؤهل",
+          reason: "مؤهل لرياض الأطفال - المستوى الثالث"
+        };
+      }
+
+      if (isBetween(birthdateValue, KG2_START, KG2_END)) {
+        return {
+          eligible: true,
+          stage: "KG2",
+          result: "مؤهل",
+          reason: "مؤهل لرياض الأطفال - المستوى الثاني"
+        };
+      }
+
+      if (isBetween(birthdateValue, KG1_START, KG1_END)) {
+        return {
+          eligible: true,
+          stage: "KG1",
+          result: "مؤهل",
+          reason: "مؤهل لرياض الأطفال - المستوى الأول"
         };
       }
 
       return {
         eligible: false,
-        stage: "غير مطابق للفئات العمرية المعتمدة لعام 2026",
-        result: "غير مؤهل"
+        stage: "غير مؤهل",
+        result: "غير مؤهل",
+        reason: "تاريخ الميلاد خارج الفئات المعتمدة"
       };
     }
 
-    function updateResultBox(eligibilityData) {
+    function updateResultBox(classification) {
       resultBox.style.display = "block";
 
-      if (eligibilityData.eligible) {
+      if (classification.eligible) {
         resultBox.className = "result-box ok";
         resultBox.innerHTML = `
           <i class="fa-solid fa-circle-check me-2"></i>
           النتيجة: مؤهل
           <br>
-          <small>الفئة المناسبة: ${eligibilityData.stage}</small>
+          <small>الفئة المناسبة: ${classification.stage}</small>
+          <br>
+          <small>${classification.reason}</small>
         `;
       } else {
         resultBox.className = "result-box bad";
@@ -292,7 +357,7 @@
           <i class="fa-solid fa-circle-xmark me-2"></i>
           النتيجة: غير مؤهل
           <br>
-          <small>${eligibilityData.stage || "يرجى إدخال تاريخ الميلاد"}</small>
+          <small>${classification.reason}</small>
         `;
       }
     }
@@ -318,7 +383,7 @@
       const supervisor = document.getElementById("supervisor").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const notes = document.getElementById("notes").value.trim();
-      const eligibilityData = calculateEligibility(birthdate);
+      const classification = classifyByBirthdate(birthdate);
       const signature = signaturePad && !signaturePad.isEmpty() ? signaturePad.toDataURL("image/png") : "";
 
       return {
@@ -328,9 +393,10 @@
         supervisor,
         phone,
         notes,
-        result: eligibilityData.result,
-        stage: eligibilityData.stage,
-        eligible: eligibilityData.eligible,
+        result: classification.result,
+        stage: classification.stage,
+        eligible: classification.eligible,
+        stageReason: classification.reason,
         signature
       };
     }
@@ -344,11 +410,11 @@
       updateResultBox({
         eligible: data.eligible,
         stage: data.stage,
-        result: data.result
+        reason: data.stageReason
       });
 
       if (!data.eligible) {
-        showToast("العمر غير مطابق لفئات KG أو الصف الأول لعام 2026", "error");
+        showToast("تاريخ الميلاد غير مطابق للفئات المعتمدة", "error");
         return;
       }
 
@@ -391,9 +457,9 @@
         return;
       }
 
-      const eligibilityData = calculateEligibility(birthdateValue);
-      stageResult.value = eligibilityData.stage || "";
-      updateResultBox(eligibilityData);
+      const classification = classifyByBirthdate(birthdateValue);
+      stageResult.value = classification.stage;
+      updateResultBox(classification);
     }
 
     clearSignatureBtn.addEventListener("click", () => signaturePad.clear());
