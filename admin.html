@@ -16,66 +16,171 @@
     :root{
       --brand:#198754;
       --brand2:#22c55e;
-      --bg:#f3f7f4;
       --text:#1f2937;
       --muted:#6b7280;
       --line:#dbe5dd;
       --white:#fff;
       --shadow:0 12px 30px rgba(25,135,84,.12);
-      --radius:20px;
     }
+
     *{box-sizing:border-box;font-family:"Cairo",sans-serif}
-    body{margin:0;background:linear-gradient(180deg,#f9fbfa 0%, #edf6ef 100%);color:var(--text)}
-    .shell{max-width:1320px;margin:24px auto;padding:0 12px}
+
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#f9fbfa 0%, #edf6ef 100%);
+      color:var(--text);
+    }
+
+    .shell{
+      max-width:1320px;
+      margin:24px auto;
+      padding:0 12px;
+    }
+
     .hero{
       background:linear-gradient(135deg,var(--brand),var(--brand2));
-      color:#fff;border-radius:28px;padding:24px;box-shadow:var(--shadow)
+      color:#fff;
+      border-radius:28px;
+      padding:24px;
+      box-shadow:var(--shadow);
     }
+
     .logo-box{
-      width:84px;height:84px;border-radius:22px;background:rgba(255,255,255,.18);
-      display:flex;align-items:center;justify-content:center;font-size:32px;
-      border:1px solid rgba(255,255,255,.25)
+      width:84px;
+      height:84px;
+      border-radius:22px;
+      background:rgba(255,255,255,.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:32px;
+      border:1px solid rgba(255,255,255,.25);
     }
+
     .stat-card,.panel{
-      background:#fff;border-radius:20px;box-shadow:var(--shadow)
+      background:#fff;
+      border-radius:20px;
+      box-shadow:var(--shadow);
     }
+
     .stat-card{padding:22px}
-    .stat-num{font-size:2rem;font-weight:800;color:var(--brand);line-height:1}
-    .stat-label{color:var(--muted);margin-top:6px}
+
+    .stat-num{
+      font-size:2rem;
+      font-weight:800;
+      color:var(--brand);
+      line-height:1;
+    }
+
+    .stat-label{
+      color:var(--muted);
+      margin-top:6px;
+    }
+
     .panel-header{
-      padding:18px 20px;border-bottom:1px solid #edf2ee;
-      display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
+      padding:18px 20px;
+      border-bottom:1px solid #edf2ee;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
     }
+
     .panel-body{padding:20px}
-    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
-    .search-box{position:relative;min-width:240px}
-    .search-box i{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+
+    .toolbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .search-box{
+      position:relative;
+      min-width:240px;
+    }
+
+    .search-box i{
+      position:absolute;
+      right:14px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+    }
+
     .search-box input{padding-right:40px}
-    .btn-brand{
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      color:#fff;border:none;border-radius:14px;font-weight:800
-    }
-    .btn-brand:hover{color:#fff;filter:brightness(.98)}
+
     .table thead th{
-      background:#eff8f2;color:#185c3c;border-bottom:1px solid #d6e7dc;white-space:nowrap
+      background:#eff8f2;
+      color:#185c3c;
+      border-bottom:1px solid #d6e7dc;
+      white-space:nowrap;
     }
-    .table td,.table th{text-align:center;vertical-align:middle}
-    .badge-ok{background:#dcfce7;color:#166534}
-    .badge-bad{background:#fee2e2;color:#991b1b}
-    .empty-state{padding:36px 16px;text-align:center;color:var(--muted)}
+
+    .table td,.table th{
+      text-align:center;
+      vertical-align:middle;
+    }
+
+    .badge-ok{
+      background:#dcfce7;
+      color:#166534;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .badge-bad{
+      background:#fee2e2;
+      color:#991b1b;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .empty-state{
+      padding:36px 16px;
+      text-align:center;
+      color:var(--muted);
+    }
+
     .toast-wrap{
-      position:fixed;top:18px;left:18px;z-index:9999;display:flex;flex-direction:column;gap:10px
+      position:fixed;
+      top:18px;
+      left:18px;
+      z-index:9999;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
+
     .mini-toast{
-      background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 10px 26px rgba(0,0,0,.14);
-      border-right:5px solid var(--brand);min-width:240px
+      background:#fff;
+      border-radius:14px;
+      padding:12px 14px;
+      box-shadow:0 10px 26px rgba(0,0,0,.14);
+      border-right:5px solid var(--brand);
+      min-width:240px;
     }
+
     .mini-toast.error{border-right-color:#dc3545}
     .mini-toast.warn{border-right-color:#f59e0b}
-    .footer-note{padding:18px 8px;text-align:center;color:var(--muted)}
-    .details-box{
-      text-align:start; background:#fafdfb; border:1px solid #ebf1ed; border-radius:14px; padding:12px
+
+    .footer-note{
+      padding:18px 8px;
+      text-align:center;
+      color:var(--muted);
     }
+
+    .details-box{
+      text-align:start;
+      background:#fafdfb;
+      border:1px solid #ebf1ed;
+      border-radius:14px;
+      padding:12px;
+      min-width:220px;
+    }
+
     @media (max-width:768px){
       .panel-body,.panel-header{padding:16px}
     }
@@ -90,14 +195,17 @@
         <div class="logo-box flex-shrink-0">
           <i class="fa-solid fa-user-shield"></i>
         </div>
+
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-1">لوحة المسؤول</h1>
           <div class="fs-5">مياس العالمية</div>
           <div>إدارة طلبات التسجيل والسجلات</div>
         </div>
+
         <div class="d-flex gap-2">
           <button id="logoutBtn" class="btn btn-light fw-bold">
-            <i class="fa-solid fa-right-from-bracket me-1"></i>تسجيل الخروج
+            <i class="fa-solid fa-right-from-bracket me-1"></i>
+            تسجيل الخروج
           </button>
         </div>
       </div>
@@ -110,12 +218,14 @@
           <div class="stat-label">إجمالي الطلبات</div>
         </div>
       </div>
+
       <div class="col-12 col-md-4">
         <div class="stat-card">
           <div class="stat-num" id="statEligible">0</div>
           <div class="stat-label">المؤهلون</div>
         </div>
       </div>
+
       <div class="col-12 col-md-4">
         <div class="stat-card">
           <div class="stat-num" id="statNotEligible">0</div>
@@ -126,7 +236,10 @@
 
     <section class="panel">
       <div class="panel-header">
-        <h2 class="h5 m-0"><i class="fa-solid fa-table-list me-2"></i>طلبات التسجيل</h2>
+        <h2 class="h5 m-0">
+          <i class="fa-solid fa-table-list me-2"></i>
+          طلبات التسجيل
+        </h2>
 
         <div class="toolbar">
           <div class="search-box">
@@ -135,11 +248,13 @@
           </div>
 
           <button id="refreshBtn" class="btn btn-outline-secondary">
-            <i class="fa-solid fa-rotate me-1"></i>تحديث
+            <i class="fa-solid fa-rotate me-1"></i>
+            تحديث
           </button>
 
           <button id="excelBtn" class="btn btn-outline-success">
-            <i class="fa-solid fa-file-excel me-1"></i>Excel
+            <i class="fa-solid fa-file-excel me-1"></i>
+            Excel
           </button>
         </div>
       </div>
@@ -165,7 +280,9 @@
         </div>
 
         <div id="emptyState" class="empty-state d-none">
-          <div class="fs-1 mb-2"><i class="fa-regular fa-folder-open"></i></div>
+          <div class="fs-1 mb-2">
+            <i class="fa-regular fa-folder-open"></i>
+          </div>
           <div>لا توجد طلبات حالياً</div>
         </div>
       </div>
@@ -222,9 +339,10 @@
 
     function showToast(message, type = "success") {
       const el = document.createElement("div");
-      el.className = mini-toast ${type === "error" ? "error" : type === "warn" ? "warn" : ""};
-      el.innerHTML = <div class="fw-bold mb-1">${type === "error" ? "تنبيه" : "تم"}</div><div>${message}</div>;
+      el.className = `mini-toast ${type === "error" ? "error" : type === "warn" ? "warn" : ""}`;
+      el.innerHTML = `<div class="fw-bold mb-1">${type === "error" ? "تنبيه" : "تم"}</div><div>${message}</div>`;
       toastWrap.appendChild(el);
+
       setTimeout(() => {
         el.style.opacity = "0";
         el.style.transform = "translateY(-8px)";
@@ -297,7 +415,7 @@
           <td>${escapeHtml(record.supervisor)}</td>
           <td>${escapeHtml(record.phone)}</td>
           <td>
-            <span class="badge ${record.result === "مؤهل" ? "badge-ok" : "badge-bad"}">
+            <span class="${record.result === "مؤهل" ? "badge-ok" : "badge-bad"}">
               ${record.result || "-"}
             </span>
           </td>
@@ -309,4 +427,123 @@
             </div>
           </td>
           <td>
-            <div class="
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+              <button class="btn btn-sm btn-outline-primary" onclick="markReviewed('${record.id}')">
+                تمت المراجعة
+              </button>
+              <button class="btn btn-sm btn-outline-danger" onclick="deleteRegistration('${record.id}')">
+                حذف
+              </button>
+            </div>
+          </td>
+        `;
+
+        recordsBody.appendChild(tr);
+      });
+    }
+
+    async function loadRegistrations() {
+      try {
+        const qRef = query(collection(db, "registrations"), orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(qRef);
+
+        registrations = snapshot.docs.map(d => ({
+          id: d.id,
+          ...d.data()
+        }));
+
+        updateStats();
+        renderTable();
+      } catch (error) {
+        console.error(error);
+        showToast("تعذر تحميل البيانات", "error");
+      }
+    }
+
+    async function deleteRegistration(id) {
+      const ok = confirm("هل تريد حذف هذا الطلب؟");
+      if (!ok) return;
+
+      try {
+        await deleteDoc(doc(db, "registrations", id));
+        registrations = registrations.filter(r => r.id !== id);
+        updateStats();
+        renderTable();
+        showToast("تم حذف الطلب", "warn");
+      } catch (error) {
+        console.error(error);
+        showToast("تعذر حذف الطلب", "error");
+      }
+    }
+
+    async function markReviewed(id) {
+      try {
+        await updateDoc(doc(db, "registrations", id), {
+          status: "reviewed"
+        });
+
+        const item = registrations.find(r => r.id === id);
+        if (item) item.status = "reviewed";
+
+        renderTable();
+        showToast("تم تحديث الحالة");
+      } catch (error) {
+        console.error(error);
+        showToast("تعذر تحديث الحالة", "error");
+      }
+    }
+
+    function exportExcel() {
+      if (!registrations.length) {
+        showToast("لا توجد بيانات للتصدير", "warn");
+        return;
+      }
+
+      const exportData = registrations.map((r, i) => ({
+        "#": i + 1,
+        "الاسم": r.studentName || "",
+        "تاريخ الميلاد": r.birthdate || "",
+        "تاريخ المقابلة": r.interviewDate || "",
+        "المشرفة": r.supervisor || "",
+        "الهاتف": r.phone || "",
+        "النتيجة": r.result || "",
+        "الحالة": r.status || "new",
+        "الملاحظات": r.notes || ""
+      }));
+
+      const ws = XLSX.utils.json_to_sheet(exportData);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "registrations");
+      XLSX.writeFile(wb, "registrations.xlsx");
+
+      showToast("تم تصدير ملف Excel");
+    }
+
+    searchInput.addEventListener("input", renderTable);
+    refreshBtn.addEventListener("click", loadRegistrations);
+    excelBtn.addEventListener("click", exportExcel);
+
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "login.html";
+      } catch (error) {
+        console.error(error);
+        showToast("تعذر تسجيل الخروج", "error");
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      loadRegistrations();
+    });
+
+    window.deleteRegistration = deleteRegistration;
+    window.markReviewed = markReviewed;
+  </script>
+</body>
+</html>
