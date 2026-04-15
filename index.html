@@ -652,6 +652,47 @@
     window.editRecord = editRecord;
     window.deleteRecord = deleteRecord;
     document.addEventListener("DOMContentLoaded", init);
-  </script>
+ </script>
+  
+  // جلب البيانات من Firebase
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB-Jan2M-qMusQQIO8UYcY16MzJfL4ftFg",
+    authDomain: "miyas-school.firebaseapp.com",
+    projectId: "miyas-school",
+    storageBucket: "miyas-school.firebasestorage.app",
+    messagingSenderId: "492549870867",
+    appId: "1:492549870867:web:c5ae4737f9539fc0bc76e6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function loadStudents() {
+    const table = document.getElementById("recordsTable");
+    table.innerHTML = "";
+
+    const querySnapshot = await getDocs(collection(db, "students"));
+
+    querySnapshot.forEach((doc) => {
+      const student = doc.data();
+
+      const row = `
+        <tr>
+          <td>${student.name || ""}</td>
+          <td>${student.grade || ""}</td>
+          <td>${student.id || ""}</td>
+        </tr>
+      `;
+
+      table.innerHTML += row;
+    });
+  }
+
+  loadStudents();
+</script>
 </body>
 </html>
